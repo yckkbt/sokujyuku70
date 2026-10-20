@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 70 - The Global Language — English</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Lato:wght@400;700;900&display=swap');
+  :root{--blue:#1a4fa0;--orange:#e8630a;--green:#1a7a3c;--light-blue:#e8f0fb;--border:#e0e4ea;--bg:#f0f2f5}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:#222}
+  .header{background:var(--blue);color:white;padding:20px 24px 16px}
+  .header-top{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+  .unit-badge{background:var(--orange);color:white;font-family:'Lato',sans-serif;font-weight:900;font-size:13px;padding:3px 10px;border-radius:20px}
+  .header h1{font-size:17px;font-weight:900}
+  .header-sub{font-size:13px;opacity:.75;margin-top:2px}
+  .header-bar{height:4px;background:var(--orange)}
+  .steps-nav{background:white;border-bottom:1px solid var(--border);display:flex;overflow-x:auto}
+  .step-btn{flex:1;min-width:80px;padding:12px 8px;border:none;background:none;font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:700;color:#888;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+  .step-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+  .step-btn:hover{background:var(--light-blue)}
+  .step-content{display:none;max-width:720px;margin:0 auto;padding:24px 20px 60px}
+  .step-content.active{display:block}
+  .listen-card{background:white;border-radius:12px;border:1px solid var(--border);padding:28px 24px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .listen-icon{font-size:48px;margin-bottom:12px}
+  .listen-title{font-size:18px;font-weight:900;margin-bottom:6px}
+  .listen-sub{font-size:13px;color:#888;margin-bottom:20px}
+  audio{width:100%;margin-top:8px}
+  .para-card{background:white;border-radius:12px;border:1px solid var(--border);padding:24px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .para-num{display:inline-block;background:var(--blue);color:white;font-family:'Lato',sans-serif;font-weight:900;font-size:12px;padding:2px 10px;border-radius:20px;margin-bottom:12px}
+  .para-en{font-family:'Lato',sans-serif;font-size:15px;line-height:1.9;margin-bottom:16px;color:#111}
+  .para-en em{font-style:normal;background:#fff3cd;padding:0 2px;border-radius:3px}
+  .para-ja{font-size:13px;line-height:1.9;color:#555;border-top:1px solid var(--border);padding-top:14px}
+  .box{border-radius:8px;padding:14px 16px;margin-top:14px;font-size:13px;line-height:1.8}
+  .vocab-box{background:#f0f7ff;border-left:4px solid var(--blue)}
+  .idiom-box{background:#fff5ee;border-left:4px solid var(--orange)}
+  .grammar-box{background:#f0fff4;border-left:4px solid var(--green)}
+  .box-title{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;opacity:.7}
+  .check-q{background:#fafafa;border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-top:14px;font-size:13px}
+  .check-q-label{font-weight:700;color:var(--blue);font-size:12px;margin-bottom:6px}
+  .quiz-card{background:white;border-radius:12px;border:1px solid var(--border);padding:22px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .quiz-q{font-size:15px;font-weight:700;margin-bottom:16px;line-height:1.6}
+  .quiz-opts{display:flex;flex-direction:column;gap:10px}
+  .quiz-opt{padding:12px 16px;border:2px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;transition:all .15s;text-align:left;background:white;font-family:'Noto Sans JP',sans-serif}
+  .quiz-opt:hover{border-color:var(--blue);background:var(--light-blue)}
+  .quiz-opt.correct{border-color:var(--green);background:#f0fff4;color:var(--green)}
+  .quiz-opt.wrong{border-color:#e53e3e;background:#fff5f5;color:#c53030}
+  .quiz-fb{margin-top:12px;font-size:13px;padding:10px 14px;border-radius:8px;display:none;line-height:1.7}
+  .quiz-fb.show{display:block}
+  .quiz-fb.ok{background:#f0fff4;color:var(--green)}
+  .quiz-fb.ng{background:#fff5f5;color:#c53030}
+  .quiz-score{text-align:center;padding:24px;background:white;border-radius:12px;border:1px solid var(--border);margin-top:20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .score-num{font-size:48px;font-weight:900;color:var(--blue);font-family:'Lato',sans-serif}
+  .retry-btn{margin-top:16px;padding:12px 32px;background:var(--blue);color:white;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif}
+  .fc-wrap{max-width:400px;margin:0 auto}
+  .fc-card{background:white;border-radius:16px;border:1px solid var(--border);min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;padding:32px 24px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:transform .1s;user-select:none;margin-bottom:16px}
+  .fc-card:active{transform:scale(.97)}
+  .fc-front{font-family:'Lato',sans-serif;font-size:22px;font-weight:700;color:var(--blue)}
+  .fc-back{display:none}
+  .fc-back-en{font-family:'Lato',sans-serif;font-size:18px;font-weight:700;color:var(--blue);margin-bottom:8px}
+  .fc-back-ja{font-size:15px;color:#555;margin-bottom:12px}
+  .fc-back-ex{font-size:13px;color:#777;font-style:italic;line-height:1.7}
+  .fc-hint{font-size:12px;color:#aaa;margin-bottom:16px;text-align:center}
+  .fc-btns{display:flex;gap:12px;justify-content:center;margin-bottom:24px}
+  .fc-btn{padding:10px 24px;border:2px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;font-weight:700;font-family:'Noto Sans JP',sans-serif;background:white;transition:all .15s}
+  .fc-btn.know{border-color:var(--green);color:var(--green)}
+  .fc-btn.know:hover{background:var(--green);color:white}
+  .fc-btn.review{border-color:var(--orange);color:var(--orange)}
+  .fc-btn.review:hover{background:var(--orange);color:white}
+  .fc-progress{font-size:13px;color:#888;text-align:center;margin-bottom:16px}
+  .fc-done{text-align:center;padding:32px 24px;background:white;border-radius:12px;border:1px solid var(--border)}
+  .step-header{font-size:16px;font-weight:900;color:var(--blue);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--light-blue)}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-top">
+    <span class="unit-badge">Unit 70</span>
+    <h1>The Global Language — English</h1>
+  </div>
+  <div class="header-sub">世界共通語・英語</div>
+</div>
+<div class="header-bar"></div>
+
+<nav class="steps-nav">
+  <button class="step-btn active" onclick="showStep(1)">🎧 Step 1 Listen</button>
+  <button class="step-btn" onclick="showStep(2)">📖 Step 2 Read</button>
+  <button class="step-btn" onclick="showStep(3)">✏️ Step 3 Quiz</button>
+  <button class="step-btn" onclick="showStep(4)">🃏 Step 4 Flashcards</button>
+</nav>
+
+<!-- STEP 1 -->
+<div class="step-content active" id="step1">
+  <div class="listen-card">
+    <div class="listen-icon">🎧</div>
+    <div class="listen-title">Unit 70 — The Global Language — English</div>
+    <div class="listen-sub">音声を聞いてから、英文を読もう</div>
+    <audio controls src="sokujukure208_eibun70.mp3"></audio>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step-content" id="step2">
+  <div class="step-header">📖 英文を読む</div>
+
+  <!-- Para 1 -->
+  <div class="para-card">
+    <span class="para-num">Para 1</span>
+    <div class="para-en">
+      English is one of the most commonly used languages in the world. As of 2020, English speakers <em>make up</em> more than one-fifth of the world population. English owes its global distribution to the British Empire. British rulers often made the people in the colonial countries speak English instead of their native language. <em>That is why</em> English is spoken by so many people today.
+    </div>
+    <div class="para-ja">
+      英語は世界で最もよく使われる言語のひとつだ。2020年時点で、英語話者は世界人口の5分の1以上を占めている。英語がこれほど世界中に広まった背景には大英帝国がある。イギリスの支配者たちは植民地の人々に母国語の代わりに英語を話させることが多かった。そのため、今日これほど多くの人々が英語を話すのだ。
+    </div>
+    <div class="box idiom-box">
+      <div class="box-title">🔑 Idiom / Phrase</div>
+      <strong>make up</strong>：〜を占める、構成する<br>
+      例）Do you know how many islands make up Japan?（日本がいくつの島から成るか知っていますか？）<br><br>
+      <strong>That is why ...</strong>：そういうわけで〜、だから〜<br>
+      例）He wanted to learn Aikido. That's why he came to Japan.（彼は合気道を習いたかった。そういうわけで彼は日本に来た。）
+    </div>
+    <div class="box vocab-box">
+      <div class="box-title">📘 Vocabulary</div>
+      <strong>as of ~</strong>：〜時点で / <strong>distribution</strong>：普及、分布 / <strong>British Empire</strong>：大英帝国 / <strong>colonial</strong>：植民地の / <strong>native language</strong>：母国語
+    </div>
+    <div class="check-q">
+      <div class="check-q-label">🔍 CHECK</div>
+      英語がこれほど世界中に普及した歴史的理由は？<br>
+      →大英帝国の支配者が植民地の人々に英語を強制したから。
+    </div>
+  </div>
+
+  <!-- Para 2 -->
+  <div class="para-card">
+    <span class="para-num">Para 2</span>
+    <div class="para-en">
+      English may be considered the global language, as is shown by these facts. The number of scientific research papers written in English is <em>on the increase</em>. English is the language on which programming is based, so you are <em>bound to</em> be required to learn English if you want to do coding. Some of the world's largest IT companies are in English-speaking countries. Also, if you are engaged in business with a foreign company, <em>chances are</em> English would be used <em>on occasion</em>.
+    </div>
+    <div class="para-ja">
+      英語はグローバル言語とみなされているが、それはこれらの事実によって示されている。英語で書かれた科学論文の数は増加している。英語はプログラミングの基盤となっている言語なので、コーディングをしたければ英語を学ぶことが必然的に求められる。世界最大のIT企業の一部は英語圏の国にある。また、外国企業とビジネスをする場合は、英語が時々使われることになるだろう。
+    </div>
+    <div class="box idiom-box">
+      <div class="box-title">🔑 Idiom / Phrase</div>
+      <strong>on the increase</strong>（= on the rise）：増加中で<br>
+      例）The number of cars in this town is on the increase.（この町の車の数は増加している。）<br><br>
+      <strong>be bound to do</strong>：必ず〜する、〜するに違いない<br>
+      例）You worked really hard. You are bound to succeed.（あなたは本当に一生懸命働いた。きっと成功するだろう。）<br><br>
+      <strong>chances are (that) ...</strong>：おそらく〜だろう<br>
+      例）Chances are she already knows the truth.（おそらく彼女はすでに真実を知っているだろう。）<br><br>
+      <strong>on occasion(s)</strong>：時々、折に触れて<br>
+      例）I meet him on occasion at the library.（私は時々図書館で彼に会う。）
+    </div>
+    <div class="check-q">
+      <div class="check-q-label">🔍 CHECK</div>
+      英語がグローバル言語とみなされる根拠として本文に挙げられている事実を3つ述べよ。<br>
+      →①科学論文の増加、②プログラミングの基盤、③世界最大のIT企業が英語圏にある。
+    </div>
+  </div>
+
+  <!-- Para 3 -->
+  <div class="para-card">
+    <span class="para-num">Para 3</span>
+    <div class="para-en">
+      Popular culture like Hollywood movies, <em>not to mention</em> pop music, are often <em>associated with</em> English. However, some countries like China are rejecting English, <em>for fear of</em> too much influence from Western culture. Worried that their values are in danger of being replaced by those from the West, they see the use of English as having a negative <em>impact on</em> their society.
+    </div>
+    <div class="para-ja">
+      ポップミュージックはもちろんのこと、ハリウッド映画のような大衆文化は英語と結びつけられることが多い。しかし、中国のような国の中には、西洋文化の影響を受けすぎることを恐れて英語を拒否しているところもある。自分たちの価値観が西洋のものに取って代わられる危険があると懸念しており、彼らは英語の使用が社会に悪影響を与えると見なしている。
+    </div>
+    <div class="box idiom-box">
+      <div class="box-title">🔑 Idiom / Phrase</div>
+      <strong>not to mention ~</strong>：〜はもちろんのこと、〜は言うまでもなく<br>
+      例）He can speak French, not to mention English.（彼は英語はもちろん、フランス語も話せる。）<br><br>
+      <strong>be associated with ~</strong>：〜と結びついている、〜と関連している<br>
+      例）Stress is often associated with illness.（ストレスはしばしば病気と結びついている。）<br><br>
+      <strong>for fear of ~</strong>：〜を恐れて、〜を懸念して<br>
+      例）He didn't report the incident for fear of being fired.（解雇されるのを恐れて、彼はその出来事を報告しなかった。）<br><br>
+      <strong>have an impact on ~</strong>（= have an effect on ~）：〜に影響を与える<br>
+      例）That book had a significant impact on me.（その本は私に大きな影響を与えた。）
+    </div>
+    <div class="check-q">
+      <div class="check-q-label">🔍 CHECK</div>
+      中国などが英語を拒否している理由は？<br>
+      →西洋文化の影響を受けすぎることを恐れ、自国の価値観が失われることを懸念しているから。
+    </div>
+  </div>
+
+  <!-- Para 4 -->
+  <div class="para-card">
+    <span class="para-num">Para 4</span>
+    <div class="para-en">
+      Nonetheless, known as "the language of opportunity," English is one of the most useful languages to learn. It is always better to be able to read English texts since meanings tend to <em>get lost</em> in translation. English's odd grammar rules and exceptions are complicated, but learning it gives you a good challenge, so be <em>proud of</em> yourself for taking it on.
+    </div>
+    <div class="para-ja">
+      それでも、「機会の言語」として知られる英語は、学ぶのに最も役立つ言語のひとつだ。翻訳するとニュアンスが失われる傾向があるため、英語の原文を読めるほうが常によい。英語の奇妙な文法規則や例外は複雑だが、それを学ぶことはよい挑戦であるから、英語学習に取り組んでいる自分を誇りに思おう。
+    </div>
+    <div class="box idiom-box">
+      <div class="box-title">🔑 Idiom / Phrase</div>
+      <strong>get lost</strong>：失われる、迷子になる<br>
+      例）He must have got lost in the forest.（彼は森で迷子になったに違いない。）<br><br>
+      <strong>be proud of ~</strong>：〜を誇りに思う<br>
+      例）I have nothing to be proud of.（私には誇れることが何もない。）
+    </div>
+    <div class="grammar-box box">
+      <div class="box-title">📗 Grammar</div>
+      <strong>~ enough to do</strong>：〜するのに十分なほど〜<br>
+      例）He is old enough to go to school.（彼は学校に行けるほどの年齢だ。）
+    </div>
+    <div class="check-q">
+      <div class="check-q-label">🔍 CHECK</div>
+      英語原文で読むほうがよい理由は？<br>
+      →翻訳すると意味やニュアンスが失われる傾向があるから（meanings tend to get lost in translation）。
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step-content" id="step3">
+  <div class="step-header">✏️ 理解度チェッククイズ</div>
+
+  <div class="quiz-card">
+    <div class="quiz-q">Q1. Why did English spread so widely around the world?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="answer(this,'wrong',1)">A. Because English is the easiest language to learn</button>
+      <button class="quiz-opt" onclick="answer(this,'correct',1)">B. Because British rulers made people in colonial countries speak English</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',1)">C. Because the United States became a superpower</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',1)">D. Because English has no grammar rules</button>
+    </div>
+    <div class="quiz-fb" id="fb1">✅ 正解！大英帝国の支配者が植民地の人々に英語を強制したため、英語は世界中に広まりました（Para 1）。</div>
+  </div>
+
+  <div class="quiz-card">
+    <div class="quiz-q">Q2. According to the passage, what does "be bound to do" mean?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="answer(this,'wrong',2)">A. To be forbidden to do something</button>
+      <button class="quiz-opt" onclick="answer(this,'correct',2)">B. To certainly or inevitably do something</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',2)">C. To be tied up physically</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',2)">D. To jump over something</button>
+    </div>
+    <div class="quiz-fb" id="fb2">✅ 正解！"be bound to do"は「必ず〜する、〜するに違いない」という意味です。</div>
+  </div>
+
+  <div class="quiz-card">
+    <div class="quiz-q">Q3. Why are countries like China rejecting English?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="answer(this,'wrong',3)">A. Because English is too difficult for their students</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',3)">B. Because they prefer French as a global language</button>
+      <button class="quiz-opt" onclick="answer(this,'correct',3)">C. Because they fear Western cultural influence replacing their own values</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',3)">D. Because English speakers are rude to them</button>
+    </div>
+    <div class="quiz-fb" id="fb3">✅ 正解！西洋文化の影響を受けて自国の価値観が失われることを恐れているからです（Para 3）。</div>
+  </div>
+
+  <div class="quiz-card">
+    <div class="quiz-q">Q4. What nickname is given to English in the passage?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="answer(this,'wrong',4)">A. "The language of power"</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',4)">B. "The language of science"</button>
+      <button class="quiz-opt" onclick="answer(this,'correct',4)">C. "The language of opportunity"</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',4)">D. "The language of culture"</button>
+    </div>
+    <div class="quiz-fb" id="fb4">✅ 正解！英語は"the language of opportunity"（機会の言語）として知られています（Para 4）。</div>
+  </div>
+
+  <div class="quiz-card">
+    <div class="quiz-q">Q5. According to the passage, why is it better to read English texts rather than translations?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="answer(this,'wrong',5)">A. Because translations are always wrong</button>
+      <button class="quiz-opt" onclick="answer(this,'correct',5)">B. Because meanings tend to get lost in translation</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',5)">C. Because translations take too much time</button>
+      <button class="quiz-opt" onclick="answer(this,'wrong',5)">D. Because translations are too expensive</button>
+    </div>
+    <div class="quiz-fb" id="fb5">✅ 正解！翻訳すると意味が失われる傾向があるため（meanings tend to get lost in translation）、原文で読むほうがよいとされています（Para 4）。</div>
+  </div>
+
+  <div class="quiz-score" id="quiz-score" style="display:none">
+    <div class="score-num" id="score-num">0/5</div>
+    <div style="margin-top:8px;font-size:15px;color:#555">お疲れ様でした！</div>
+    <button class="retry-btn" onclick="retryQuiz()">もう一度挑戦する</button>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step-content" id="step4">
+  <div class="step-header">🃏 イディオム・フレーズ フラッシュカード</div>
+  <div class="fc-wrap">
+    <div class="fc-progress" id="fc-progress">1 / 10</div>
+    <div class="fc-hint">タップしてうら面を見る</div>
+    <div class="fc-card" id="fc-card" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+    <div class="fc-btns">
+      <button class="fc-btn review" onclick="markCard(false)">🔁 もう一度</button>
+      <button class="fc-btn know" onclick="markCard(true)">✅ 覚えた！</button>
+    </div>
+    <div class="fc-done" id="fc-done" style="display:none">
+      <div style="font-size:32px;margin-bottom:12px">🎉</div>
+      <div style="font-size:18px;font-weight:900;margin-bottom:8px">全カード完了！</div>
+      <div style="font-size:14px;color:#555;margin-bottom:20px">よく頑張りました！</div>
+      <button class="retry-btn" onclick="shuffleCards()">もう一度やる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function showStep(n){
+  document.querySelectorAll('.step-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.step-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  document.querySelectorAll('.step-btn')[n-1].classList.add('active');
+}
+
+let scores={},answered={};
+function answer(btn,type,qn){
+  if(answered[qn])return;
+  answered[qn]=true;
+  btn.closest('.quiz-opts').querySelectorAll('.quiz-opt').forEach(o=>o.style.pointerEvents='none');
+  btn.classList.add(type);
+  const fb=document.getElementById('fb'+qn);
+  if(type==='correct'){scores[qn]=1;fb.classList.add('ok','show');}
+  else{scores[qn]=0;fb.textContent='❌ 不正解。本文をもう一度確認しよう！';fb.classList.add('ng','show');}
+  if(Object.keys(answered).length===5)showScore();
+}
+function showScore(){
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  document.getElementById('score-num').textContent=total+'/5';
+  document.getElementById('quiz-score').style.display='block';
+}
+function retryQuiz(){
+  scores={};answered={};
+  document.querySelectorAll('.quiz-opt').forEach(o=>{o.classList.remove('correct','wrong');o.style.pointerEvents='';});
+  document.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('show','ok','ng'));
+  document.getElementById('fb1').textContent='✅ 正解！大英帝国の支配者が植民地の人々に英語を強制したため、英語は世界中に広まりました（Para 1）。';
+  document.getElementById('fb2').textContent='✅ 正解！"be bound to do"は「必ず〜する、〜するに違いない」という意味です。';
+  document.getElementById('fb3').textContent='✅ 正解！西洋文化の影響を受けて自国の価値観が失われることを恐れているからです（Para 3）。';
+  document.getElementById('fb4').textContent='✅ 正解！英語は"the language of opportunity"（機会の言語）として知られています（Para 4）。';
+  document.getElementById('fb5').textContent='✅ 正解！翻訳すると意味が失われる傾向があるため（meanings tend to get lost in translation）、原文で読むほうがよいとされています（Para 4）。';
+  document.getElementById('quiz-score').style.display='none';
+}
+
+const cards=[
+  {front:'make up',ja:'〜を占める、〜を構成する',ex:'Do you know how many islands make up Japan?\n（日本がいくつの島から成るか知っていますか？）'},
+  {front:'That is why ...',ja:'そういうわけで〜、だから〜',ex:"He wanted to learn Aikido. That's why he came to Japan.\n（彼は合気道を習いたかった。そういうわけで日本に来た。）"},
+  {front:'on the increase',ja:'増加中で',ex:'The number of cars in this town is on the increase.\n（この町の車の数は増加している。）'},
+  {front:'be bound to do',ja:'必ず〜する、〜するに違いない',ex:'You worked really hard. You are bound to succeed.\n（あなたは本当に頑張った。きっと成功するだろう。）'},
+  {front:'chances are (that) ...',ja:'おそらく〜だろう',ex:'Chances are she already knows the truth.\n（おそらく彼女はすでに真実を知っているだろう。）'},
+  {front:'on occasion(s)',ja:'時々、折に触れて',ex:'I meet him on occasion at the library.\n（私は時々図書館で彼に会う。）'},
+  {front:'not to mention ~',ja:'〜はもちろんのこと',ex:'He can speak French, not to mention English.\n（彼は英語はもちろん、フランス語も話せる。）'},
+  {front:'for fear of ~',ja:'〜を恐れて、〜を懸念して',ex:"He didn't report the incident for fear of being fired.\n（解雇されるのを恐れて、彼はその出来事を報告しなかった。）"},
+  {front:'have an impact on ~',ja:'〜に影響を与える',ex:'That book had a significant impact on me.\n（その本は私に大きな影響を与えた。）'},
+  {front:'be proud of ~',ja:'〜を誇りに思う',ex:'I have nothing to be proud of.\n（私には誇れることが何もない。）'},
+];
+
+let deck=[...cards],ci=0,flipped=false;
+
+function shuffleCards(){
+  deck=[...cards].sort(()=>Math.random()-.5);
+  ci=0;flipped=false;
+  document.getElementById('fc-done').style.display='none';
+  document.getElementById('fc-card').style.display='flex';
+  document.querySelector('.fc-btns').style.display='flex';
+  document.querySelector('.fc-hint').style.display='block';
+  renderCard();
+}
+function renderCard(){
+  if(ci>=deck.length){
+    document.getElementById('fc-card').style.display='none';
+    document.querySelector('.fc-btns').style.display='none';
+    document.querySelector('.fc-hint').style.display='none';
+    document.getElementById('fc-done').style.display='block';
+    return;
+  }
+  const c=deck[ci];flipped=false;
+  document.getElementById('fc-front').textContent=c.front;
+  document.getElementById('fc-front').style.display='block';
+  document.getElementById('fc-back').innerHTML=`<div class="fc-back-en">${c.front}</div><div class="fc-back-ja">${c.ja}</div><div class="fc-back-ex">${c.ex.replace(/\n/g,'<br>')}</div>`;
+  document.getElementById('fc-back').style.display='none';
+  document.getElementById('fc-progress').textContent=(ci+1)+' / '+deck.length;
+}
+function flipCard(){
+  flipped=!flipped;
+  document.getElementById('fc-front').style.display=flipped?'none':'block';
+  document.getElementById('fc-back').style.display=flipped?'block':'none';
+}
+function markCard(known){
+  if(!flipped)flipCard();
+  setTimeout(()=>{if(!known)deck.push(deck[ci]);ci++;renderCard();},300);
+}
+shuffleCards();
+</script>
+</body>
+</html>
